@@ -1,0 +1,28 @@
+CC = gcc
+BIN_DIR = ../build
+OBJ_DIR = $(BIN_DIR)/obj
+TEST_DIR = test
+
+CCFLAGS = --std=C99 -g -Wall
+INCLUDES = -I.
+SRC_FILES = ubigint.c
+
+all: basic_test
+
+basic_test: $(SRC_FILES) basic.c
+	$(CC) $(CFLAGS) $(INCLUDES) -o basic_test
+
+.c.o:
+	$(CC) $(CFLAGS) $(INCLUDES) -c $<  -o $@
+
+depend: $(SRC_FILES)
+	makedepend $(INCLUDES) $^
+	makedepend $(TEST_DIR) $^
+
+# DO NOT DELETE THIS LINE -- make depend needs it
+
+ubigint.o: ubigint.h /usr/include/stdint.h /usr/include/features.h
+ubigint.o: /usr/include/stdc-predef.h /usr/include/sys/cdefs.h
+ubigint.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+ubigint.o: /usr/include/bits/wchar.h /usr/include/string.h
+ubigint.o: /usr/include/xlocale.h
